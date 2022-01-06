@@ -22,10 +22,11 @@ func OpenConfig() {
 	var registerAutoStartBtn *widget.Button
 	var removeAutoStartBtn *widget.Button
 	registerAutoStartBtn = widget.NewButton("设置开机自启(需要管理员无需重复设置)", func() {
+		// todo 启动状态判断
 		bussiness.RegisterAutoStart()
 	})
 
-	removeAutoStartBtn = widget.NewButton("设置开机自启(需要管理员无需重复设置)", func() {
+	removeAutoStartBtn = widget.NewButton("移除开机自启(需要管理员无需重复设置)", func() {
 		bussiness.RemoveRegisterAutoStart()
 	})
 	form = append(form, registerAutoStartBtn)
