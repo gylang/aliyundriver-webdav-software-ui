@@ -16,6 +16,8 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 下载压缩包 可以直接运行 aliyundriver-webdav.exe
 
+关于开机自启 需要RaiDrive 和 webdav服务开机自启, webdav设置自启可能需要管理员权限
+
 #### 使用说明
 
 # 安装RaiDrive
@@ -26,13 +28,17 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 **最简单只需要填 refreshToken( 建议改端口 防止被占用)**
 
+![image-20220106211654620](README.assets/image-20220106211654620.png)
+
+
+
 
 
 # 获取refreshToken
 
 > **1. 登录阿里云**
 >
-> ![image-20220106211654620](README.assets/image-20220106211654620.png)
+> https://www.aliyundrive.com/
 >
 > 2. 浏览器打开**开发者模式(F12)**
 >
@@ -40,6 +46,18 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 >
 > 3. **获取refreshToken**
 >    ![image-20220106211538483](README.assets/image-20220106211538483.png)
+
+# 启动Raidrive服务
+
+![image-20220107112639591](README.assets/image-20220107112639591.png)
+
+# 查看是否生效
+
+![image-20220107112534270](README.assets/image-20220107112534270.png)
+
+# 没有生效
+
+查看日志文件/logs(还没完善 有问题请联系)
 
 ## 有问题可以微信联系
 
