@@ -21,6 +21,7 @@ func main() {
 		}
 	}
 	a := app.New()
+	lifecycle.InitTheme(a)
 	m_container.MApp = a
 	go lifecycle.Process()
 

@@ -2,6 +2,7 @@ package lifecycle
 
 import (
 	"aliyundriver-webdav/bussiness"
+	"aliyundriver-webdav/constant"
 	"aliyundriver-webdav/domain"
 	"aliyundriver-webdav/m_container"
 	"aliyundriver-webdav/util"
@@ -19,10 +20,10 @@ func InitConfig() {
 }
 func InitBeforeConfig() {
 	closeOld()
-	time.LoadLocation("Asia/Shanghai")
 	initLog()
 	initFont()
 	intConfig()
+	MonitorWebdavStatus(nil)
 }
 
 func closeOld() {
@@ -39,8 +40,8 @@ func closeOld() {
 func intConfig() {
 	config := domain.AliWebDavConfig{}
 	m_container.Config = &config
-	dir := util.CurrentDirectory()
-	file, _ := os.OpenFile(dir+string(os.PathSeparator)+"bin"+string(os.PathSeparator)+"webdav-conf.json", os.O_RDONLY, 0777)
+	confPath := constant.WebdavConfigPath()
+	file, _ := os.OpenFile(confPath, os.O_RDONLY, 0777)
 	bytes, _ := io.ReadAll(file)
 	json.Unmarshal(bytes, &config)
 	file.Close()
@@ -49,7 +50,7 @@ func intConfig() {
 			<-time.NewTicker(time.Second * 30).C
 			jsonConf, err := json.Marshal(&config)
 			if err == nil {
-				file, err = os.OpenFile(dir+string(os.PathSeparator)+"bin"+string(os.PathSeparator)+"webdav-conf.json", os.O_RDWR|os.O_TRUNC, 0777)
+				file, err = os.OpenFile(confPath, os.O_RDWR|os.O_TRUNC, 0777)
 				if err != nil {
 					continue
 				}
@@ -64,19 +65,16 @@ func intConfig() {
 
 func initFont() {
 	// 加载字体
-	dir := util.CurrentDirectory()
-	log.Println(dir)
-	ttfDir := dir + string(os.PathSeparator) + "resource" + string(os.PathSeparator) + "simhei.ttf"
-	log.Println(ttfDir)
-	os.Setenv("FYNE_FONT", ttfDir)
+	log.Println(constant.FontPath())
+	os.Setenv("FYNE_FONT", constant.FontPath())
 }
 
 func initLog() {
-	dir := util.CurrentDirectory()
-	if _, err := os.Stat(dir + string(os.PathSeparator) + "logs"); os.IsNotExist(err) {
-		util.MakeDir(dir + string(os.PathSeparator) + "logs")
+	LogPath := constant.LogPath()
+	if _, err := os.Stat(LogPath); os.IsNotExist(err) {
+		util.MakeDir(LogPath)
 	}
-	file := dir + string(os.PathSeparator) + "logs" + string(os.PathSeparator) + time.Now().Format("2006-01-02") + ".txt"
+	file := LogPath + string(os.PathSeparator) + time.Now().Format("2006-01-02") + ".txt"
 	logFile, err := os.OpenFile(file, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	if err != nil {
 		panic(err)
