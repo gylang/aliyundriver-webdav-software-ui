@@ -11,6 +11,7 @@ import (
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
 	"image/color"
+	"log"
 )
 
 func OpenConfig() {
@@ -23,12 +24,35 @@ func OpenConfig() {
 	var removeAutoStartBtn *widget.Button
 	registerAutoStartBtn = widget.NewButton("设置开机自启(需要管理员无需重复设置)", func() {
 		// todo 启动状态判断
-		bussiness.RegisterAutoStart()
+		err := bussiness.RegisterAutoStart()
+		if err != nil {
+			Error("设置开机自启失败", err.Error())
+		} else {
+			Msg("设置开机自启", "成功")
+			registerAutoStartBtn.Disable()
+			removeAutoStartBtn.Enable()
+		}
 	})
 
 	removeAutoStartBtn = widget.NewButton("移除开机自启(需要管理员无需重复设置)", func() {
-		bussiness.RemoveRegisterAutoStart()
+		// todo 启动状态判断
+		err := bussiness.RemoveRegisterAutoStart()
+		if err != nil {
+			Error("移除开机自启失败", err.Error())
+		} else {
+			Msg("移除开机自启", "成功")
+			registerAutoStartBtn.Enable()
+			removeAutoStartBtn.Disable()
+		}
 	})
+	autoStart := bussiness.QueryRegisterAutoStart()
+	if autoStart {
+		registerAutoStartBtn.Disable()
+	} else {
+		removeAutoStartBtn.Disable()
+	}
+	RunnStatus := widget.NewLabelWithData(m_container.MRunningStatus.StatusBinder)
+
 	form = append(form, registerAutoStartBtn)
 	form = append(form, removeAutoStartBtn)
 	// AutoIndex
@@ -216,7 +240,11 @@ func OpenConfig() {
 		stopBtn.Enable()
 		Disable(notCanEditFun...)
 		bussiness.RunWebDav()
-		m_container.Running = true
+		m_container.MRunningStatus.Running = true
+		err := m_container.MRunningStatus.StatusBinder.Set("运行中")
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
 
 	stopBtn = widget.NewButton("停止", func() {
@@ -224,9 +252,13 @@ func OpenConfig() {
 		stopBtn.Disable()
 		Enable(canEditFun...)
 		bussiness.StopWebDav()
-		m_container.Running = false
+		m_container.MRunningStatus.Running = false
+		err := m_container.MRunningStatus.StatusBinder.Set("未启动")
+		if err != nil {
+			log.Fatal(err)
+		}
 	})
-	if m_container.Running {
+	if m_container.MRunningStatus.Running {
 		startBtn.Disable()
 		Disable(notCanEditFun...)
 	} else {
@@ -242,8 +274,10 @@ func OpenConfig() {
 	form = append(form, startBtn)
 	form = append(form, stopBtn)
 	grid := container.New(layout.NewGridLayout(2), form...)
+	// 设置状态情况
+	content := container.New(layout.NewVBoxLayout(), []fyne.CanvasObject{RunnStatus, grid}...)
 
-	m_container.DefaultWindow().SetContent(grid)
+	m_container.DefaultWindow().SetContent(content)
 	m_container.DefaultWindow().CenterOnScreen()
 	m_container.DefaultWindow().Resize(fyne.Size{Width: 400, Height: 600})
 	m_container.DefaultWindow().Show()
