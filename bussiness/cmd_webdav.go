@@ -9,12 +9,15 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"syscall"
 )
 
 func RunWebDav() {
 
 	params := parseParams(*m_container.Config)
-	command := exec.Command("cmd.exe", append([]string{"/c", util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "aliyundriver_start.vbs"}, params...)...)
+	command := exec.Command(constant.WebdavPath(), params...)
+	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	log.Println(command.String())
 	logFile, err := os.OpenFile(constant.WebdavLogsPath(), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
 	if err != nil {
 		log.Println("记录webdav执行日志文件打开失败 " + err.Error())
@@ -22,7 +25,6 @@ func RunWebDav() {
 		command.Stderr = logFile
 		command.Stdout = logFile
 	}
-	log.Println(command.String())
 	command.Start()
 
 }
@@ -32,12 +34,14 @@ func StopWebDav() {
 	if runtime.GOOS == "windows" {
 		if runtime.GOOS == "windows" {
 			cmd := exec.Command("taskkill.exe", "/F", "/T", "/IM", constant.WinAliyunDriveWebdav)
+			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 			log.Println(cmd.String())
-			_, err := cmd.CombinedOutput()
+			res, err := cmd.CombinedOutput()
+			result := util.ConvertToString(string(res), "gbk", "utf8")
+			log.Println(result)
 			if err != nil {
 				log.Println(err.Error())
 			}
-
 		}
 
 	}
@@ -46,7 +50,6 @@ func StopWebDav() {
 func parseParams(config domain.AliWebDavConfig) []string {
 
 	cmd := make([]string, 0)
-	cmd = append(cmd, util.CurrentDirectory()+string(os.PathSeparator)+"bin"+string(os.PathSeparator)+"aliyundrive-webdav.exe")
 	if "Y" == config.AutoIndex {
 		cmd = append(cmd, "-I")
 	}

@@ -29,3 +29,6 @@ func IconJpgPath() string {
 func AppServerModeCmd() string {
 	return util.CurrentDirectory() + string(os.PathSeparator) + "aliyundriver-webdav.exe -server"
 }
+func WebdavPath() string {
+	return util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "aliyundrive-webdav.exe"
+}

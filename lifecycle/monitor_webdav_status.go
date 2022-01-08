@@ -3,12 +3,11 @@ package lifecycle
 import (
 	"aliyundriver-webdav/bussiness"
 	"aliyundriver-webdav/m_container"
-	"fyne.io/fyne/v2/widget"
 	"log"
 	"time"
 )
 
-func MonitorWebdavStatus(w *widget.Label) {
+func MonitorWebdavStatus() {
 	timer := time.NewTimer(time.Second * 2)
 	SetWebDavStatus()
 
@@ -16,6 +15,9 @@ func MonitorWebdavStatus(w *widget.Label) {
 		for {
 			<-timer.C
 			SetWebDavStatus()
+			get, _ := m_container.MRunningStatus.StatusBinder.Get()
+			log.Println("当前webdav状态" + get)
+			timer.Reset(time.Second * 2)
 		}
 	}()
 }

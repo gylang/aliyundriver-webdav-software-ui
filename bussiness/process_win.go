@@ -5,10 +5,13 @@ import (
 	"github.com/gookit/goutil/strutil"
 	"log"
 	"os/exec"
+	"syscall"
 )
 
 func ListProcess(text string) []domain.MProcess {
-	cmd := exec.Command("tasklist", "/FI", text)
+	cmd := exec.Command("cmd", "/c", "tasklist", "/FI", text)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
@@ -17,7 +20,8 @@ func ListProcess(text string) []domain.MProcess {
 }
 
 func ListAllProcess() []domain.MProcess {
-	cmd := exec.Command("tasklist")
+	cmd := exec.Command("cmd", "/c", "tasklist")
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
@@ -26,7 +30,8 @@ func ListAllProcess() []domain.MProcess {
 }
 
 func killProcess(text string) {
-	cmd := exec.Command("taskkill", "/F", "/T", "/FI", text)
+	cmd := exec.Command("cmd", "/c", "taskkill", "/F", "/T", "/FI", text)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)
@@ -36,6 +41,7 @@ func killProcess(text string) {
 
 func KillProcessByPid(text string) {
 	cmd := exec.Command("taskkill", "/F", "/T", "/PID", text)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		log.Fatal(err)

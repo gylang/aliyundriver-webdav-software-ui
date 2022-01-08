@@ -5,5 +5,5 @@ Set oArgs = WScript.Arguments
         cmd = cmd & s & " "
     Next
 Set oArgs = Nothing
-' MsgBox(Trim(cmd))
+MsgBox(Trim(cmd))
 ws.Run cmd,0

@@ -247,7 +247,7 @@ func OpenConfig() {
 		}
 	})
 
-	stopBtn = widget.NewButton("停止", func() {
+	stopBtn = widget.NewButton("停止(重新打开需要管理员)", func() {
 		startBtn.Enable()
 		stopBtn.Disable()
 		Enable(canEditFun...)

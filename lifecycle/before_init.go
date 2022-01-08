@@ -19,11 +19,11 @@ func InitConfig() {
 
 }
 func InitBeforeConfig() {
-	closeOld()
+	//closeOld()
 	initLog()
 	initFont()
 	intConfig()
-	MonitorWebdavStatus(nil)
+	MonitorWebdavStatus()
 }
 
 func closeOld() {
