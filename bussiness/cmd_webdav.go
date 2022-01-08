@@ -5,10 +5,12 @@ import (
 	"aliyundriver-webdav/domain"
 	"aliyundriver-webdav/m_container"
 	"aliyundriver-webdav/util"
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 	"syscall"
 )
 
@@ -29,7 +31,7 @@ func RunWebDav() {
 
 }
 
-func StopWebDav() {
+func StopWebDav() error {
 
 	if runtime.GOOS == "windows" {
 		if runtime.GOOS == "windows" {
@@ -41,10 +43,15 @@ func StopWebDav() {
 			log.Println(result)
 			if err != nil {
 				log.Println(err.Error())
+				return err
+			}
+			if strings.Contains(result, "错误") || strings.Contains(result, "exit") {
+				return fmt.Errorf(result)
 			}
 		}
 
 	}
+	return nil
 }
 
 func parseParams(config domain.AliWebDavConfig) []string {

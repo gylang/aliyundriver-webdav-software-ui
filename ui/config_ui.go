@@ -247,16 +247,21 @@ func OpenConfig() {
 		}
 	})
 
-	stopBtn = widget.NewButton("停止(重新打开需要管理员)", func() {
+	stopBtn = widget.NewButton("停止", func() {
 		startBtn.Enable()
 		stopBtn.Disable()
 		Enable(canEditFun...)
-		bussiness.StopWebDav()
-		m_container.MRunningStatus.Running = false
-		err := m_container.MRunningStatus.StatusBinder.Set("未启动")
+		err := bussiness.StopWebDav()
 		if err != nil {
-			log.Fatal(err)
+			Error("停止webdav服务", err.Error())
+		} else {
+			m_container.MRunningStatus.Running = false
+			err = m_container.MRunningStatus.StatusBinder.Set("未启动")
+			if err != nil {
+				log.Fatal(err)
+			}
 		}
+
 	})
 	if m_container.MRunningStatus.Running {
 		startBtn.Disable()
