@@ -63,7 +63,7 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 ![img.png](img.png)
 
-<img src="README.assets/image-20220108113118230.png" alt="image-20220108113118230" style="zoom:50%;" />
+![image-20220108113118230](README.assets/image-20220108113118230.png)
 
 #### 参与贡献
 
