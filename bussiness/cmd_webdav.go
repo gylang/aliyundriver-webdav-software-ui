@@ -20,12 +20,12 @@ func RunWebDav() {
 	command := exec.Command(constant.WebdavPath(), params...)
 	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	log.Println(command.String())
-	logFile, err := os.OpenFile(constant.WebdavLogsPath(), os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
+	logFile, err := os.OpenFile(constant.WebdavLogsPath(), os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	if err != nil {
 		log.Println("记录webdav执行日志文件打开失败 " + err.Error())
 	} else {
-		command.Stderr = logFile
 		command.Stdout = logFile
+		command.Stderr = logFile
 	}
 	command.Start()
 

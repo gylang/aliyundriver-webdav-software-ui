@@ -9,7 +9,7 @@ import (
 const WinAliyunDriveWebdav = "aliyundrive-webdav.exe"
 
 func WebdavLogsPath() string {
-	return util.CurrentDirectory() + string(os.PathSeparator) + "logs" + string(os.PathSeparator) + time.Now().Format("2006-01-02150405") + "-webdav-executor.txt"
+	return util.CurrentDirectory() + string(os.PathSeparator) + "logs" + string(os.PathSeparator) + time.Now().Format("2006-01-02") + "-webdav-executor.txt"
 }
 func WebdavConfigPath() string {
 	return util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "webdav-conf.json"
