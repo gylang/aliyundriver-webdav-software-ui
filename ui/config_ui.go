@@ -247,7 +247,7 @@ func OpenConfig() {
 		}
 	})
 
-	stopBtn = widget.NewButton("停止", func() {
+	stopBtn = widget.NewButton("停止(关闭失败可能是管理模式启动)", func() {
 		startBtn.Enable()
 		stopBtn.Disable()
 		Enable(canEditFun...)
