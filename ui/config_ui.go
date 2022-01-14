@@ -94,18 +94,6 @@ func OpenConfig() {
 	})
 	form = append(form, ReadOnlyInput)
 
-	//AuthPassword
-	form = append(form, canvas.NewText("webdav登录密码", color.Black))
-	AuthPasswordInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		AuthPasswordInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		AuthPasswordInput.Disable()
-	})
-	AuthPasswordInput.Bind(binding.BindString(&(m_container.Config.AuthPassword)))
-	form = append(form, AuthPasswordInput)
-
 	//AuthUser
 	form = append(form, canvas.NewText("webdav登录账号", color.Black))
 	AuthUserInput := widget.NewEntry()
@@ -117,6 +105,18 @@ func OpenConfig() {
 	})
 	AuthUserInput.Bind(binding.BindString(&(m_container.Config.AuthUser)))
 	form = append(form, AuthUserInput)
+
+	//AuthPassword
+	form = append(form, canvas.NewText("webdav登录账号密码", color.Black))
+	AuthPasswordInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		AuthPasswordInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		AuthPasswordInput.Disable()
+	})
+	AuthPasswordInput.Bind(binding.BindString(&(m_container.Config.AuthPassword)))
+	form = append(form, AuthPasswordInput)
 
 	//CacheSize
 	form = append(form, canvas.NewText("目录条目缓存大小[默认值:1000]", color.Black))
