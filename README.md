@@ -28,6 +28,8 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 **最简单只需要填 refreshToken( 建议改端口 防止被占用)**
 
+`注意, 把地址Address去掉 不使用https`
+
 ![image-20220106211654620](README.assets/image-20220106211654620.png)
 
 
@@ -46,6 +48,12 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 >
 > 3. **获取refreshToken**
 >    ![image-20220106211538483](README.assets/image-20220106211538483.png)
+
+## 配置RaiDrive
+
+`注意, 把地址Address去掉 不使用https`
+
+![image-20220114092345822](README.assets/image-20220114092345822.png)
 
 # 启动Raidrive服务
 
