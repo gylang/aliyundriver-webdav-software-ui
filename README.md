@@ -71,6 +71,20 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 ![img.png](img.png)
 
+# 常见问题
+
+> refresh_token
+>
+> > 每次启动程序会刷新refresh_token, webdav启动的时候 refresh_token会刷新, 当前简单实现, 只在程序启动获取刷新后的refresh_tokenUI显示, 当自动刷新的refresh_token发生变更, 手填的会被覆盖
+>
+> 关于程序启动问题
+>
+> > 管理员启动webdav程序, 需要管理权限关闭
+> >
+> > 设置开机自启需要使用管理员权限
+> >
+> > 启动webdav服务后可以退出本程序, 不需要一直启动
+
 #### 参与贡献
 
 1. Fork 本仓库
