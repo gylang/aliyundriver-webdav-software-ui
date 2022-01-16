@@ -10,7 +10,7 @@ func InitTheme(app fyne.App) {
 
 	resource, err := fyne.LoadResourceFromPath(constant.IconJpgPath())
 	if err != nil {
-		log.Fatalf("加载图标失败 %s", err.Error())
+		log.Printf("加载图标失败 %s", err.Error())
 	} else {
 		app.SetIcon(resource)
 	}

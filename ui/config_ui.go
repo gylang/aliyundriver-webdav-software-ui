@@ -214,18 +214,6 @@ func OpenConfig() {
 	RootInput.Bind(binding.BindString(&(m_container.Config.Root)))
 	form = append(form, RootInput)
 
-	//WorkDir
-	form = append(form, canvas.NewText("阿里云盘工作目录", color.Black))
-	WorkDirInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		WorkDirInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		WorkDirInput.Disable()
-	})
-	WorkDirInput.Bind(binding.BindString(&(m_container.Config.WorkDir)))
-	form = append(form, WorkDirInput)
-
 	// 两个按钮
 	var startBtn *widget.Button
 	var stopBtn *widget.Button

@@ -32,3 +32,6 @@ func AppServerModeCmd() string {
 func WebdavPath() string {
 	return util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "aliyundrive-webdav.exe"
 }
+func WebdavRefreshTokenPath() string {
+	return util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "refresh_token"
+}

@@ -35,15 +35,16 @@ type AliWebDavConfig struct {
 	Version   string `json:"version"`
 
 	// option
-	AuthPassword string `json:"auth_password"`
-	AuthUser     string `json:"auth_user"`
-	CacheSize    string `json:"cache_size"`
-	CacheTtl     string `json:"cache_ttl"`
-	DomainId     string `json:"domain_id"`
-	Host         string `json:"host"`
-	Port         string `json:"port"`
-	ReadBuffSize string `json:"read_buff_size"`
-	RefreshToken string `json:"refresh_token"`
-	Root         string `json:"root"`
-	WorkDir      string `json:"work_dir"`
+	AuthPassword     string `json:"auth_password"`
+	AuthUser         string `json:"auth_user"`
+	CacheSize        string `json:"cache_size"`
+	CacheTtl         string `json:"cache_ttl"`
+	DomainId         string `json:"domain_id"`
+	Host             string `json:"host"`
+	Port             string `json:"port"`
+	ReadBuffSize     string `json:"read_buff_size"`
+	SyncRefreshToken string `json:"sync_refresh_token"`
+	RefreshToken     string `json:"refresh_token"`
+	Root             string `json:"root"`
+	WorkDir          string `json:"work_dir"`
 }

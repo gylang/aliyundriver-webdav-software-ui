@@ -38,12 +38,26 @@ func closeOld() {
 }
 
 func intConfig() {
-	config := domain.AliWebDavConfig{}
+	config := domain.AliWebDavConfig{WorkDir: constant.WebdavRefreshTokenPath()}
 	m_container.Config = &config
 	confPath := constant.WebdavConfigPath()
 	file, _ := os.OpenFile(confPath, os.O_RDONLY, 0777)
 	bytes, _ := io.ReadAll(file)
 	json.Unmarshal(bytes, &config)
+
+	refreshToken, err := os.OpenFile(constant.WebdavRefreshTokenPath(), os.O_RDONLY, 0777)
+	if err != nil {
+		log.Println("打开refresh_token 失败")
+	} else {
+		rf, _ := io.ReadAll(refreshToken)
+		if rf != nil && string(rf) != m_container.Config.SyncRefreshToken {
+			rfStr := string(rf)
+			m_container.Config.SyncRefreshToken = rfStr
+			m_container.Config.RefreshToken = rfStr
+		}
+		refreshToken.Close()
+	}
+
 	file.Close()
 	go func() {
 		for {
