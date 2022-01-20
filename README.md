@@ -95,7 +95,6 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 5. https://gitee.com/gitee-stars/)
 
 ##免责声明
-- 本软件为免费开源项目，无任何形式的盈利行为。
 - 本软件服务于阿里云盘，旨在让阿里云盘功能更强大。如有侵权，请与我联系，会及时处理。
 - 本软件皆调用官方接口实现，无任何“Hack”行为，无破坏官方接口行为。
 - 本软件仅做流量转发，不拦截、存储、篡改任何用户数据。
