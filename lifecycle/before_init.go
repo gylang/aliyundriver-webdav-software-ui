@@ -38,7 +38,7 @@ func closeOld() {
 }
 
 func intConfig() {
-	config := domain.AliWebDavConfig{WorkDir: constant.WebdavRefreshTokenPath()}
+	config := domain.AliWebDavConfig{WorkDir: constant.WebdavRefreshTokenPathFolder()}
 	m_container.Config = &config
 	confPath := constant.WebdavConfigPath()
 	file, _ := os.OpenFile(confPath, os.O_RDONLY, 0777)

@@ -46,5 +46,5 @@ type AliWebDavConfig struct {
 	SyncRefreshToken string `json:"sync_refresh_token"`
 	RefreshToken     string `json:"refresh_token"`
 	Root             string `json:"root"`
-	WorkDir          string `json:"work_dir"`
+	WorkDir          string `json:"omitempty"`
 }
