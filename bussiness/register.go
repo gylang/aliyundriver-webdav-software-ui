@@ -7,11 +7,13 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+	"syscall"
 )
 
 func RegisterAutoStart() error {
 	// reg ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v "D:\software\aliyundriver-webdav\aliyundriver-webdav.exe -server" /f
 	cmd := exec.Command("REG", "ADD", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "go_auto_start", "/t", "REG_SZ", "/d", constant.AppServerModeCmd(), "/f")
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	log.Println(cmd.String())
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -33,6 +35,7 @@ func RemoveRegisterAutoStart() error {
 
 	// REG DELETE HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v go_auto_start
 	cmd := exec.Command("REG", "DELETE", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "go_auto_start", "/f")
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	log.Println(cmd.String())
 	out, err := cmd.CombinedOutput()
 	if err != nil {
@@ -50,6 +53,7 @@ func QueryRegisterAutoStart() bool {
 
 	// REG QUERY HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run /v go_auto_start
 	cmd := exec.Command("REG", "QUERY", "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "/v", "go_auto_start")
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	log.Println(cmd.String())
 	out, err := cmd.CombinedOutput()
 	if err != nil {
