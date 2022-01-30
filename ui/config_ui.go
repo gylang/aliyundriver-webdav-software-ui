@@ -2,6 +2,7 @@ package ui
 
 import (
 	"aliyundriver-webdav/bussiness"
+	"aliyundriver-webdav/constant"
 	m_container "aliyundriver-webdav/m_container"
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/canvas"
@@ -10,7 +11,6 @@ import (
 	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/theme"
 	"fyne.io/fyne/v2/widget"
-	"image/color"
 	"log"
 )
 
@@ -55,8 +55,56 @@ func OpenConfig() {
 
 	form = append(form, registerAutoStartBtn)
 	form = append(form, removeAutoStartBtn)
+	//RefreshToken
+	form = append(form, canvas.NewText("阿里云盘refreshToken", constant.Red))
+	RefreshTokenInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		RefreshTokenInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		RefreshTokenInput.Disable()
+	})
+	RefreshTokenInput.Bind(binding.BindString(&(m_container.Config.RefreshToken)))
+	form = append(form, RefreshTokenInput)
+
+	//AuthUser
+	form = append(form, canvas.NewText("webdav登录账号", constant.Green))
+	AuthUserInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		AuthUserInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		AuthUserInput.Disable()
+	})
+	AuthUserInput.Bind(binding.BindString(&(m_container.Config.AuthUser)))
+	form = append(form, AuthUserInput)
+
+	//AuthPassword
+	form = append(form, canvas.NewText("webdav登录账号密码", constant.Green))
+	AuthPasswordInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		AuthPasswordInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		AuthPasswordInput.Disable()
+	})
+	AuthPasswordInput.Bind(binding.BindString(&(m_container.Config.AuthPassword)))
+	form = append(form, AuthPasswordInput)
+
+	//Port
+	form = append(form, canvas.NewText("监听端口[default: 8080]", constant.Green))
+	PortInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		PortInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		PortInput.Disable()
+	})
+	PortInput.Bind(binding.BindString(&(m_container.Config.Port)))
+	form = append(form, PortInput)
+
 	// AutoIndex
-	form = append(form, canvas.NewText("自动生成主页(index,html)", color.Black))
+	form = append(form, canvas.NewText("自动生成主页(index,html)", constant.Gray))
 	AutoIndexItem := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.AutoIndex = value
 	})
@@ -67,9 +115,8 @@ func OpenConfig() {
 		AutoIndexItem.Disable()
 	})
 	form = append(form, AutoIndexItem)
-
 	//NoTrash
-	form = append(form, canvas.NewText("永久删除文件而不是将其销毁", color.Black))
+	form = append(form, canvas.NewText("永久删除文件而不是将其销毁", constant.Gray))
 	NoTrashInput := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.NoTrash = value
 	})
@@ -82,7 +129,7 @@ func OpenConfig() {
 	form = append(form, NoTrashInput)
 
 	//ReadOnly
-	form = append(form, canvas.NewText("自读模式", color.Black))
+	form = append(form, canvas.NewText("自读模式", constant.Gray))
 	ReadOnlyInput := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.ReadOnly = value
 	})
@@ -94,32 +141,8 @@ func OpenConfig() {
 	})
 	form = append(form, ReadOnlyInput)
 
-	//AuthUser
-	form = append(form, canvas.NewText("webdav登录账号", color.Black))
-	AuthUserInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		AuthUserInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		AuthUserInput.Disable()
-	})
-	AuthUserInput.Bind(binding.BindString(&(m_container.Config.AuthUser)))
-	form = append(form, AuthUserInput)
-
-	//AuthPassword
-	form = append(form, canvas.NewText("webdav登录账号密码", color.Black))
-	AuthPasswordInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		AuthPasswordInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		AuthPasswordInput.Disable()
-	})
-	AuthPasswordInput.Bind(binding.BindString(&(m_container.Config.AuthPassword)))
-	form = append(form, AuthPasswordInput)
-
 	//CacheSize
-	form = append(form, canvas.NewText("目录条目缓存大小[默认值:1000]", color.Black))
+	form = append(form, canvas.NewText("目录条目缓存大小[默认值:1000]", constant.Gray))
 	CacheSizeInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		CacheSizeInput.Enable()
@@ -131,7 +154,7 @@ func OpenConfig() {
 	form = append(form, CacheSizeInput)
 
 	//CacheTtl
-	form = append(form, canvas.NewText("目录条目缓存过期时间(以秒为单位)[默认:600]", color.Black))
+	form = append(form, canvas.NewText("目录条目缓存过期时间(以秒为单位)[默认:600]", constant.Gray))
 	CacheTtlInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		CacheTtlInput.Enable()
@@ -143,7 +166,7 @@ func OpenConfig() {
 	form = append(form, CacheTtlInput)
 
 	//DomainId
-	form = append(form, canvas.NewText(" Aliyun PDS domain id", color.Black))
+	form = append(form, canvas.NewText(" Aliyun PDS domain id", constant.Gray))
 	DomainIdInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		DomainIdInput.Enable()
@@ -155,7 +178,7 @@ func OpenConfig() {
 	form = append(form, DomainIdInput)
 
 	//Host
-	form = append(form, canvas.NewText("监听host[default: 0.0.0.0]", color.Black))
+	form = append(form, canvas.NewText("监听host[default: 0.0.0.0]", constant.Gray))
 	HostInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		HostInput.Enable()
@@ -166,20 +189,8 @@ func OpenConfig() {
 	HostInput.Bind(binding.BindString(&(m_container.Config.Host)))
 	form = append(form, HostInput)
 
-	//Port
-	form = append(form, canvas.NewText("监听端口[default: 8080]", color.Black))
-	PortInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		PortInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		PortInput.Disable()
-	})
-	PortInput.Bind(binding.BindString(&(m_container.Config.Port)))
-	form = append(form, PortInput)
-
 	//ReadBuffSize
-	form = append(form, canvas.NewText("读取/下载缓冲区大小(字节)[默认值:10485760]  ", color.Black))
+	form = append(form, canvas.NewText("读取/下载缓冲区大小(字节)[默认值:10485760]  ", constant.Gray))
 	ReadBuffSizeInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		ReadBuffSizeInput.Enable()
@@ -190,20 +201,8 @@ func OpenConfig() {
 	ReadBuffSizeInput.Bind(binding.BindString(&(m_container.Config.ReadBuffSize)))
 	form = append(form, ReadBuffSizeInput)
 
-	//RefreshToken
-	form = append(form, canvas.NewText("阿里云盘refreshToken", &color.RGBA{R: 255, G: 0, B: 0, A: 255}))
-	RefreshTokenInput := widget.NewEntry()
-	canEditFun = append(canEditFun, func() {
-		RefreshTokenInput.Enable()
-	})
-	notCanEditFun = append(notCanEditFun, func() {
-		RefreshTokenInput.Disable()
-	})
-	RefreshTokenInput.Bind(binding.BindString(&(m_container.Config.RefreshToken)))
-	form = append(form, RefreshTokenInput)
-
 	//Root
-	form = append(form, canvas.NewText("根目录路径[默认:/]", color.Black))
+	form = append(form, canvas.NewText("根目录路径[默认:/]", constant.Gray))
 	RootInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		RootInput.Enable()
