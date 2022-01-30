@@ -12,7 +12,7 @@ https:github.com/gookit/goutil (工具类)
 
 https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
-#### 安装教程
+#### 安装教程(界面存在一定偏差)
 
 下载压缩包 可以直接运行 aliyundriver-webdav.exe
 
