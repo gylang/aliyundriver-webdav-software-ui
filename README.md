@@ -12,7 +12,7 @@ https:github.com/gookit/goutil (工具类)
 
 https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
-#### 安装教程
+#### 安装教程(界面存在一定偏差)
 
 下载压缩包 可以直接运行 aliyundriver-webdav.exe
 
@@ -67,15 +67,13 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 
 查看日志文件/logs(还没完善 有问题请联系)
 
-## 有问题可以微信联系
-
-![img.png](img.png)
-
 # 常见问题
 
 > refresh_token
 >
 > > 每次启动程序会刷新refresh_token, webdav启动的时候 refresh_token会刷新, 当前简单实现, 只在程序启动获取刷新后的refresh_tokenUI显示, 当自动刷新的refresh_token发生变更, 手填的会被覆盖
+> >
+> > refreshToken长度只有36位数字英文组成
 >
 > 关于程序启动问题
 >
@@ -84,6 +82,20 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 > > 设置开机自启需要使用管理员权限
 > >
 > > 启动webdav服务后可以退出本程序, 不需要一直启动
+>
+> 程序配置
+>
+> > 红色必填
+> >
+> > 绿色建议
+> >
+> > 灰色可选
+
+## 有问题可以微信联系
+
+![img.png](img.png)
+
+
 
 #### 参与贡献
 

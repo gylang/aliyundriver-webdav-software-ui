@@ -7,6 +7,7 @@ import (
 	"fyne.io/fyne/v2/app"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -16,7 +17,17 @@ func main() {
 	for _, v := range args {
 		println(v)
 		if "-server" == v {
-			bussiness.RunWebDav()
+
+			for i := 0; i < 5; i++ {
+				if !lifecycle.WebdavRunningStatus() {
+					// 重试五次 可能因为网络问题没有成功
+					bussiness.RunWebDav()
+					if lifecycle.WebdavRunningStatus() {
+						return
+					}
+					time.Sleep(time.Second * 1)
+				}
+			}
 			return
 		}
 	}

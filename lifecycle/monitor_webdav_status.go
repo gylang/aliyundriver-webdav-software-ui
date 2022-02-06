@@ -39,3 +39,7 @@ func SetWebDavStatus() {
 		}
 	}
 }
+func WebdavRunningStatus() bool {
+	process := bussiness.ListProcess("IMAGENAME eq aliyundrive-webdav.exe")
+	return len(process) > 0
+}

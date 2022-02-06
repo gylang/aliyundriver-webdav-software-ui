@@ -35,3 +35,6 @@ func WebdavPath() string {
 func WebdavRefreshTokenPath() string {
 	return util.CurrentDirectory() + string(os.PathSeparator) + "bin" + string(os.PathSeparator) + "refresh_token"
 }
+func WebdavRefreshTokenPathFolder() string {
+	return util.CurrentDirectory() + string(os.PathSeparator) + "bin"
+}
