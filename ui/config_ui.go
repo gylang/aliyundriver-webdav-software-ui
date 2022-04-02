@@ -22,7 +22,7 @@ func OpenConfig() {
 	// 两个按钮
 	var registerAutoStartBtn *widget.Button
 	var removeAutoStartBtn *widget.Button
-	registerAutoStartBtn = widget.NewButton("设置开机自启(需要管理员无需重复设置)", func() {
+	registerAutoStartBtn = widget.NewButton("设置开机自启(需要管理员权限)", func() {
 		// todo 启动状态判断
 		err := bussiness.RegisterAutoStart()
 		if err != nil {
@@ -34,7 +34,7 @@ func OpenConfig() {
 		}
 	})
 
-	removeAutoStartBtn = widget.NewButton("移除开机自启(需要管理员无需重复设置)", func() {
+	removeAutoStartBtn = widget.NewButton("移除开机自启(需要管理员权限)", func() {
 		// todo 启动状态判断
 		err := bussiness.RemoveRegisterAutoStart()
 		if err != nil {
@@ -80,7 +80,7 @@ func OpenConfig() {
 	form = append(form, AuthUserInput)
 
 	//AuthPassword
-	form = append(form, canvas.NewText("webdav登录账号密码", constant.Green))
+	form = append(form, canvas.NewText("webdav登录密码", constant.Green))
 	AuthPasswordInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		AuthPasswordInput.Enable()
@@ -108,6 +108,7 @@ func OpenConfig() {
 	AutoIndexItem := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.AutoIndex = value
 	})
+	AutoIndexItem.SetSelected(m_container.Config.AutoIndex)
 	canEditFun = append(canEditFun, func() {
 		AutoIndexItem.Enable()
 	})
@@ -116,10 +117,11 @@ func OpenConfig() {
 	})
 	form = append(form, AutoIndexItem)
 	//NoTrash
-	form = append(form, canvas.NewText("永久删除文件而不是将其销毁", constant.Gray))
+	form = append(form, canvas.NewText("永久删除文件而不是将其放到回收站", constant.Gray))
 	NoTrashInput := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.NoTrash = value
 	})
+	NoTrashInput.SetSelected(m_container.Config.NoTrash)
 	canEditFun = append(canEditFun, func() {
 		NoTrashInput.Enable()
 	})
@@ -133,6 +135,7 @@ func OpenConfig() {
 	ReadOnlyInput := widget.NewSelect([]string{"Y", "N"}, func(value string) {
 		m_container.Config.ReadOnly = value
 	})
+	ReadOnlyInput.SetSelected(m_container.Config.ReadOnly)
 	canEditFun = append(canEditFun, func() {
 		ReadOnlyInput.Enable()
 	})
@@ -166,7 +169,7 @@ func OpenConfig() {
 	form = append(form, CacheTtlInput)
 
 	//DomainId
-	form = append(form, canvas.NewText(" Aliyun PDS domain id", constant.Gray))
+	form = append(form, canvas.NewText("Aliyun PDS domain id", constant.Gray))
 	DomainIdInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		DomainIdInput.Enable()
@@ -190,7 +193,7 @@ func OpenConfig() {
 	form = append(form, HostInput)
 
 	//ReadBuffSize
-	form = append(form, canvas.NewText("读取/下载缓冲区大小(字节)[默认值:10485760]  ", constant.Gray))
+	form = append(form, canvas.NewText("读取/下载缓冲区大小(字节)[默认值:10485760]", constant.Gray))
 	ReadBuffSizeInput := widget.NewEntry()
 	canEditFun = append(canEditFun, func() {
 		ReadBuffSizeInput.Enable()

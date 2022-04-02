@@ -15,7 +15,7 @@ import (
 )
 
 func RunWebDav() {
-
+	WriteConfig()
 	params := parseParams(*m_container.Config)
 	command := exec.Command(constant.WebdavPath(), params...)
 	command.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
@@ -34,22 +34,19 @@ func RunWebDav() {
 func StopWebDav() error {
 
 	if runtime.GOOS == "windows" {
-		if runtime.GOOS == "windows" {
-			cmd := exec.Command("taskkill.exe", "/F", "/T", "/IM", constant.WinAliyunDriveWebdav)
-			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-			log.Println(cmd.String())
-			res, err := cmd.CombinedOutput()
-			result := util.ConvertToString(string(res), "gbk", "utf8")
-			log.Println(result)
-			if err != nil {
-				log.Println(err.Error())
-				return err
-			}
-			if strings.Contains(result, "错误") || strings.Contains(result, "exit") {
-				return fmt.Errorf(result)
-			}
+		cmd := exec.Command("taskkill.exe", "/F", "/T", "/IM", constant.WinAliyunDriveWebdav)
+		cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+		log.Println(cmd.String())
+		res, err := cmd.CombinedOutput()
+		result := util.ConvertToString(string(res), "gbk", "utf8")
+		log.Println(result)
+		if err != nil {
+			log.Println(err.Error())
+			return err
 		}
-
+		if strings.Contains(result, "错误") || strings.Contains(result, "exit") {
+			return fmt.Errorf(result)
+		}
 	}
 	return nil
 }

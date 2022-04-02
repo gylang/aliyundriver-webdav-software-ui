@@ -1,6 +1,7 @@
 package bussiness
 
 import (
+	"aliyundriver-webdav/constant"
 	"aliyundriver-webdav/domain"
 	"github.com/gookit/goutil/sysutil/process"
 	"reflect"
@@ -33,8 +34,7 @@ func Test_listProcess(t *testing.T) {
 		args args
 		want []domain.MProcess
 	}{
-		{name: "aliyundriver-webdav.exe", args: args{text: "IMAGENAME eq aliyundriver-webdav.exe"}},
-		{name: "aliyundrive-webdav.exe", args: args{text: "IMAGENAME eq aliyundrive-webdav.exe"}},
+		{name: constant.AppProcessName, args: args{text: "IMAGENAME eq aliyundriver-webdav.exe"}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

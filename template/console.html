@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GiLang-阿里云WEBDAV</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="js/jq.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">GiLang-阿里云WEBDAV</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">状态：
+                        <span v-if="running" style="color: #0a9e0c">运行中</span>
+                        <span v-if="!running" style="color: #202120">未启动</span></a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" @click="registerAutoStart">设置开机自启(需要管理员无需重复设置)</a></li>
+                    <li><a href="#" @click="removeRegisterAutoStart">移除开机自启(需要管理员无需重复设置)</a></li>
+                    <li><a href="#" @click="closeApp">关闭程序（不会退出webdav）</a></li>
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal" method="post" action="#">
+                    <!-- 表单区域-->
+                    <fieldset>
+                        <!-- 每一个form-group都可以自定义布局-->
+
+                        <!--阿里云盘refreshToken-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" style="color: #f11812">阿里云盘refreshToken</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.refresh_token" type="password"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+
+                        <!--                        webdav登录账号 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" style="color: #3e8f3e">webdav登录账号</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.auth_user" type="text"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--                        webdav登录密码 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" style="color: #3e8f3e">webdav登录密码</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.auth_password" type="password"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--监听端口[default: 8080]-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">监听端口[default: 8080]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.port" type="text" :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--                        指定生成主页 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">自动生成主页(网页访问)</label>
+                            <div class="col-md-4">
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" value="man"
+                                           @click="form.auto_index = 'Y'" :disabled="formDisable"/>是
+                                </div>
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" @click="form.auto_index = 'N'"
+                                           :disabled="formDisable" value="woman"/>否
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                        永久删除文件而不是将其放到回收站 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">永久删除文件而不是将其放到回收站</label>
+                            <div class="col-md-4">
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" value="man"
+                                           @click="form.no_trash = 'Y'" :disabled="formDisable"/>是
+                                </div>
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" @click="form.no_trash = 'N'" :disabled="formDisable"
+                                           value="woman"/>否
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                        只读模式 -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">永久删除文件而不是将其放到回收站</label>
+                            <div class="col-md-4">
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" value="man"
+                                           @click="form.read_only = 'Y'" :disabled="formDisable"/>是
+                                </div>
+                                <div class="radio-inline">
+                                    <input type="radio" name="sex" @click="form.read_only = 'N'" value="woman"
+                                           :disabled="formDisable"/>否
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--                        目录条目缓存大小[默认值:1000] -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">目录条目缓存大小[默认值:1000]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.cache_size" type="number"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--                        目录条目缓存过期时间(以秒为单位)[默认:600] -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">目录条目缓存过期时间(以秒为单位)[默认:600]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.cache_ttl" type="number"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--                         Aliyun PDS domain id -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Aliyun PDS domain id</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.cache_ttl" type="text"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--监听host[default: 0.0.0.0]-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">监听host[default: 0.0.0.0]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.host" type="text" :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+                        <!--读取/下载缓冲区大小(字节)[默认值:10485760]-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">读取/下载缓冲区大小(字节)[默认值:10485760]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.read_buff_size" type="number"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
+
+
+
+                    </fieldset>
+                </form>
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-3">
+                        <input class="btn btn-primary" :disabled="!canStartServer" @click="start" type="button"
+                               value="启动"/>
+                    </div>
+                    <div class="col-md-3">
+                        <input class="btn btn-warning" :disabled="canStartServer" @click="stop" type="reset"
+                               value="停止"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script>
+
+    const service = axios.create({
+        // axios中请求配置有baseURL选项，表示请求URL公共部分
+        baseURL: 'http://127.0.0.1:{{ .WebPost}}',
+        // 超时
+        timeout: 10000
+    })
+
+
+    // 响应拦截器
+    service.interceptors.response.use(res => {
+            // 未设置状态码则默认成功状态
+            const status = res.status;
+            if (status !== 200) {
+                console.log(res.data)
+            } else {
+                return res.data
+            }
+        }, (err) => {
+            alert(err.response.data)
+            return new Promise.reject(err)
+        }
+    )
+
+    new Vue({
+        el: '#app',
+        data: {
+            running: false,
+            formDisable: false,
+            canStartServer: true,
+            form: {
+                auto_index: "{{.AutoIndex}}",
+                no_trash: "{{.NoTrash}}",
+                read_only: "{{.ReadOnly}}",
+                version: "{{.Version}}",
+                auth_password: "{{.AuthPassword}}",
+                auth_user: "{{.AuthUser}}",
+                cache_size: "{{.CacheSize}}",
+                cache_ttl: "{{.CacheTtl}}",
+                domain_id: "{{.DomainId}}",
+                host: "{{.Host}}",
+                port: "{{.Port}}",
+                read_buff_size: "{{.ReadBuffSize}}",
+                refresh_token: "{{.RefreshToken}}",
+                root: "{{.Root}}"
+            },
+            statusTask: undefined,
+
+        },
+        methods: {
+            start() {
+                service({
+                    url: '/start', method: 'post', data: this.form
+                }).then(r => {
+                    this.running = true
+                    this.formDisable = true
+                    this.canStartServer = false
+                })
+            },
+            stop() {
+                service('/stop', this.form).then(r => {
+                    this.running = false
+                    this.formDisable = false
+                    this.canStartServer = true
+                })
+            },
+            status() {
+                service('/status').then(r => {
+                    this.running = r
+                    if (this.running) {
+                        this.canStartServer = false
+                        this.formDisable = true
+                    } else {
+                        this.canStartServer = true
+                        this.formDisable = false
+                    }
+                })
+            },
+            closeApp() {
+                service('/closeApp', this.form).then(r => {
+                    window.close();
+                })
+            },
+            registerAutoStart() {
+
+                service('/registerAutoStart', this.form).then(r => {
+                    alert(r)
+                })
+            },
+            removeRegisterAutoStart() {
+                service('/removeRegisterAutoStart', this.form).then(r => {
+                    alert(r)
+                })
+            },
+
+
+            startStatusTask() {
+                let that = this;
+                that.status()
+                this.statusTask = setInterval(() => {
+                    that.status()
+                }, 3000)
+            }
+        },
+        created: function () {
+            this.startStatusTask()
+        },
+        destroy: function () {
+            clearInterval(this.statusTask)
+        }
+    })
+</script>
+</html>

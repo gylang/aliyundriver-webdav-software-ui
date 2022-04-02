@@ -1,1 +1,5 @@
 /rsrc.exe
+bin/webdav-conf.json
+/bin/refresh_token
+/.idea/
+/logs/

@@ -14,7 +14,7 @@ func ListProcess(text string) []domain.MProcess {
 
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	return Parse2MProcess(string(out))
 }
@@ -24,7 +24,7 @@ func ListAllProcess() []domain.MProcess {
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	return Parse2MProcess(string(out))
 }
@@ -34,7 +34,7 @@ func killProcess(text string) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	log.Println(string(out))
 }
@@ -44,7 +44,7 @@ func KillProcessByPid(text string) {
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	log.Println(string(out))
 }

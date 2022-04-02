@@ -4,6 +4,7 @@ import (
 	"aliyundriver-webdav/bussiness"
 	"aliyundriver-webdav/lifecycle"
 	"aliyundriver-webdav/m_container"
+	"aliyundriver-webdav/web"
 	"fyne.io/fyne/v2/app"
 	"log"
 	"os"
@@ -31,12 +32,25 @@ func main() {
 			return
 		}
 	}
-	a := app.New()
-	lifecycle.InitTheme(a)
-	m_container.MApp = a
-	go lifecycle.Process()
+	if m_container.Config.WebAccess {
+		web.OpenWebServer()
+	} else {
+		func() {
+			defer func() {
+				// 启动失败异常处理
+				if p := recover(); p != nil {
+					// ui打不开 使用页面方式
+					log.Println(p)
+					log.Println("启动失败, 打开web页面")
+					web.OpenWebServer()
+				}
+			}()
+			a := app.New()
+			lifecycle.InitTheme(a)
+			m_container.MApp = a
+			go lifecycle.Process()
+			a.Run()
 
-	//go systray.Run(m_systray.OpenSystray, nil)
-	log.Println("程序已启动")
-	a.Run()
+		}()
+	}
 }

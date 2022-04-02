@@ -47,4 +47,6 @@ type AliWebDavConfig struct {
 	RefreshToken     string `json:"refresh_token"`
 	Root             string `json:"root"`
 	WorkDir          string `json:"omitempty"`
+	WebAccess        bool   `json:"web_access"`
+	WebPost          int    `json:"web_post"`
 }

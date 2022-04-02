@@ -4,19 +4,33 @@
 {**阿里云盘/本地挂载网络盘/WebDAV/win软件/界面**}
 
 #### 软件架构
-https:fyne.io/fyne/v2 v2.1.2 ui框架
+https://fyne.io/fyne/v2 v2.1.2 ui框架
 
-https:github.com/getlantern/systray 任务栏(win10 bug不少 弃用)
+https://github.com/getlantern/systray 任务栏(win10 bug不少 弃用)
 
-https:github.com/gookit/goutil (工具类)
+https://github.com/gookit/goutil (工具类)
 
 https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
+
+ui框架加载失败的后补方案
+
+https://cn.vuejs.org/index.html (vue.js)
+
+https://jquery.com/ (jquery)
+
+https://getbootstrap.com/ (bootstrap)
 
 #### 安装教程(界面存在一定偏差)
 
 下载压缩包 可以直接运行 aliyundriver-webdav.exe
 
 关于开机自启 需要RaiDrive 和 webdav服务开机自启, webdav设置自启可能需要管理员权限
+
+#### 更新记录
+
+- 通过web页面支持win11
+
+
 
 #### 使用说明
 
@@ -91,9 +105,25 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 > >
 > > 灰色可选
 
-## 有问题可以微信联系
 
-![img.png](img.png)
+
+#### 更新详情
+
+- win11解决方案
+
+  > 因为fyne ui框架暂时不支持win11,所以使用web页面代替webdav配置,
+  >
+  > 当**软件ui启动失败的时候,会启动web服务进行配置**,页面和软件配置基本一样
+  >
+  > 如果想直接访问网页端 需要手动修改配置**bin/webdav-conf.json**增加 **"web_access" : true**
+  >
+  > ![image-20220317190916915](README.assets/image-20220317190916915.png)
+
+
+
+## 有问题可以微信联系(记得备注)
+
+![img_2.png](README.assets/img_2.png)
 
 
 
@@ -107,6 +137,7 @@ https://github.com/messense/aliyundrive-webdav (一个rust写的webdav)
 5. https://gitee.com/gitee-stars/)
 
 ##免责声明
+- 本软件为免费开源项目，无任何形式的盈利行为。
 - 本软件服务于阿里云盘，旨在让阿里云盘功能更强大。如有侵权，请与我联系，会及时处理。
 - 本软件皆调用官方接口实现，无任何“Hack”行为，无破坏官方接口行为。
 - 本软件仅做流量转发，不拦截、存储、篡改任何用户数据。

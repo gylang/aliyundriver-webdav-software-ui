@@ -7,6 +7,7 @@ import (
 )
 
 const WinAliyunDriveWebdav = "aliyundrive-webdav.exe"
+const AppProcessName = "aliyundriver-webdav.exe"
 
 func WebdavLogsPath() string {
 	return util.CurrentDirectory() + string(os.PathSeparator) + "logs" + string(os.PathSeparator) + time.Now().Format("2006-01-02") + "-webdav-executor.txt"

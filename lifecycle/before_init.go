@@ -24,10 +24,11 @@ func InitBeforeConfig() {
 	initFont()
 	intConfig()
 	MonitorWebdavStatus()
+	bussiness.TimerPersistence()
 }
 
-func closeOld() {
-	listProcess := bussiness.ListProcess("IMAGENAME eq aliyundriver-webdav.exe")
+func CloseOld() {
+	listProcess := bussiness.ListProcess("IMAGENAME eq " + constant.AppProcessName)
 	for _, v := range listProcess {
 		if v.Pid != process.PID() {
 			if v.Pid > 0 {
@@ -42,10 +43,11 @@ func intConfig() {
 	m_container.Config = &config
 	confPath := constant.WebdavConfigPath()
 	file, _ := os.OpenFile(confPath, os.O_RDONLY, 0777)
-	bytes, _ := io.ReadAll(file)
-	json.Unmarshal(bytes, &config)
-
-	refreshToken, err := os.OpenFile(constant.WebdavRefreshTokenPath(), os.O_RDONLY, 0777)
+	bytes, err := io.ReadAll(file)
+	if err == nil {
+		json.Unmarshal(bytes, &config)
+	}
+	refreshToken, err := os.OpenFile(constant.WebdavRefreshTokenPath(), os.O_RDONLY, 0444)
 	if err != nil {
 		log.Println("打开refresh_token 失败")
 	} else {
@@ -59,22 +61,7 @@ func intConfig() {
 	}
 
 	file.Close()
-	go func() {
-		for {
-			<-time.NewTicker(time.Second * 30).C
-			jsonConf, err := json.Marshal(&config)
-			if err == nil {
-				file, err = os.OpenFile(confPath, os.O_RDWR|os.O_TRUNC, 0777)
-				if err != nil {
-					continue
-				}
-				_, err := file.Write(jsonConf)
-				if err != nil {
-					log.Println(err.Error())
-				}
-			}
-		}
-	}()
+
 }
 
 func initFont() {
