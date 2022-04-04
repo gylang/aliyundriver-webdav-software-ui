@@ -111,7 +111,7 @@ https://getbootstrap.com/ (bootstrap)
 
 - win11解决方案
 
-  > 因为fyne ui框架暂时不支持win11,所以使用web页面代替webdav配置,
+  > 因为fyne ui框架存在某些win11版本不兼容,所以使用web页面代替webdav配置,
   >
   > 当**软件ui启动失败的时候,会启动web服务进行配置**,页面和软件配置基本一样
   >
