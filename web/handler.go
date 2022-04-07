@@ -30,6 +30,7 @@ func OpenWebServer() {
 		m_container.Config.WebPost = 35640
 	}
 	if JustOpenPage() {
+		OpenWebPage()
 		return
 	}
 	// 关闭旧进程

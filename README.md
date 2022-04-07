@@ -28,7 +28,7 @@ https://getbootstrap.com/ (bootstrap)
 
 #### 更新记录
 
-- 通过web页面支持win11
+-  如果启动失败,可以执行change_mode.exe切换至web模式
 
 
 
@@ -109,13 +109,12 @@ https://getbootstrap.com/ (bootstrap)
 
 #### 更新详情
 
-- win11解决方案
+- openGL不兼容解决方案
 
-  > 因为fyne ui框架存在某些win11版本不兼容,所以使用web页面代替webdav配置,
+  > 因为fyne ui框架使用的openGL,如果启动失败可以web页面代替方案 如果启动失败,可以执行change_mode.exe切换至web模式
   >
   > 当**软件ui启动失败的时候,会启动web服务进行配置**,页面和软件配置基本一样
   >
-  > 如果想直接访问网页端 需要手动修改配置**bin/webdav-conf.json**增加 **"web_access" : true**
   >
   > ![image-20220317190916915](README.assets/image-20220317190916915.png)
 
