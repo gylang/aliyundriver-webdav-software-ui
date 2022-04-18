@@ -1,9 +1,13 @@
-# aliyundriver-webdav 
+# aliyundriver-webdav
+
 # 好用请点个star吧
+
 #### 介绍
+
 {**阿里云盘/本地挂载网络盘/WebDAV/win软件/界面**}
 
 #### 软件架构
+
 https://fyne.io/fyne/v2 v2.1.2 ui框架
 
 https://github.com/getlantern/systray 任务栏(win10 bug不少 弃用)
@@ -39,6 +43,10 @@ https://getbootstrap.com/ (bootstrap)
 #### 更新记录
 
 -  如果启动失败,可以执行change_mode.exe切换至web模式
+
+
+
+**遇到问题可以查看 常见为题, 使用过程中存在的问题和解决也可以反馈记录**
 
 
 
@@ -106,6 +114,8 @@ https://getbootstrap.com/ (bootstrap)
 > > 设置开机自启需要使用管理员权限
 > >
 > > 启动webdav服务后可以退出本程序, 不需要一直启动
+> >
+> > 查看日志发现OpenGl不兼容, 可以执行change_mode.exe, 切换到web模式
 >
 > 程序配置
 >
@@ -114,6 +124,18 @@ https://getbootstrap.com/ (bootstrap)
 > > 绿色建议
 > >
 > > 灰色可选
+>
+> 关于程序路径问题
+>
+> > 如果程序在C盘目录下, 开机自启有可能不成功
+> >
+> > 如果你设置了开机自启, 又移动了程序路径将不生效
+>
+> 关于程序下载
+>
+> > 建议直接把完整下载, 里面包含了字体文件等, 如果只下载exe存在乱码等情况
+>
+> 
 
 
 
@@ -144,6 +166,7 @@ https://getbootstrap.com/ (bootstrap)
 5. https://gitee.com/gitee-stars/)
 
 ##免责声明
+
 - 本软件为免费开源项目，无任何形式的盈利行为。
 - 本软件服务于阿里云盘，旨在让阿里云盘功能更强大。如有侵权，请与我联系，会及时处理。
 - 本软件仅软件壳子,核心服务调用aliyundrive-webdav (一个rust写的webdav)的做流量转发，不拦截、存储、篡改任何用户数据。
