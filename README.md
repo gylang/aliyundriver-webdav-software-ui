@@ -20,11 +20,21 @@ https://jquery.com/ (jquery)
 
 https://getbootstrap.com/ (bootstrap)
 
+
+
+## 注意: 本软件只是一个实现开机自启,操作操作控制的界面控制台, 不涉及任何的阿里云盘数据
+
+
+
 #### 安装教程(界面存在一定偏差)
 
-下载压缩包 可以直接运行 aliyundriver-webdav.exe
+- 直接下载zip
+- 下载阿里云盘webdav  https://github.com/messense/aliyundrive-webdav/releases, 将aliyundrive-webdav.exe放于 bin目录下
+- 运行根目录下 aliyundriver-webdav.exe 即可启动服务
 
 关于开机自启 需要RaiDrive 和 webdav服务开机自启, webdav设置自启可能需要管理员权限
+
+仅校验过 阿里云盘webdav 1.1.0版本
 
 #### 更新记录
 
@@ -120,9 +130,7 @@ https://getbootstrap.com/ (bootstrap)
 
 
 
-## 有问题可以微信联系(记得备注)
 
-![img_2.png](README.assets/img_2.png)
 
 
 
@@ -138,7 +146,6 @@ https://getbootstrap.com/ (bootstrap)
 ##免责声明
 - 本软件为免费开源项目，无任何形式的盈利行为。
 - 本软件服务于阿里云盘，旨在让阿里云盘功能更强大。如有侵权，请与我联系，会及时处理。
-- 本软件皆调用官方接口实现，无任何“Hack”行为，无破坏官方接口行为。
 - 本软件仅软件壳子,核心服务调用aliyundrive-webdav (一个rust写的webdav)的做流量转发，不拦截、存储、篡改任何用户数据。
 - 严禁使用本软件进行盈利、损坏官方、散落任何违法信息等行为。
 - 本软件不作任何稳定性的承诺，如因使用本软件导致的文件丢失、文件破坏等意外情况，均与本软件无关。
