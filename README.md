@@ -8,6 +8,7 @@
 
 
 
+
 #### 介绍
 
 {**阿里云盘/本地挂载网络盘/WebDAV/win软件/界面**}
@@ -178,3 +179,10 @@ https://getbootstrap.com/ (bootstrap)
 - 本软件仅软件壳子,核心服务调用aliyundrive-webdav (一个rust写的webdav)的做流量转发，不拦截、存储、篡改任何用户数据。
 - 严禁使用本软件进行盈利、损坏官方、散落任何违法信息等行为。
 - 本软件不作任何稳定性的承诺，如因使用本软件导致的文件丢失、文件破坏等意外情况，均与本软件无关。
+
+
+
+## JetBrains 开源证书支持
+感谢 JetBrains 提供的免费授权
+![image](https://user-images.githubusercontent.com/41338363/170253261-67e7d599-f601-442b-b95e-4431ef151e7c.png)
+
