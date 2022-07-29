@@ -35,7 +35,7 @@ func main() {
 					if lifecycle.WebdavRunningStatus() {
 						return
 					}
-					time.Sleep(time.Second * 1)
+					time.Sleep(time.Second * 5)
 				}
 			}
 			return
