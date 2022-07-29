@@ -8,18 +8,27 @@ import (
 	"fyne.io/fyne/v2/app"
 	"log"
 	"os"
+	"strconv"
 	"time"
 )
 
 func main() {
 	lifecycle.InitBeforeConfig()
 	lifecycle.InitConfig()
+
 	args := os.Args
 	for _, v := range args {
 		println(v)
 		if "-server" == v {
-
-			for i := 0; i < 5; i++ {
+			if len(m_container.Config.StartWithOsRetryNum) <= 0 {
+				m_container.Config.StartWithOsRetryNum = "10"
+			}
+			retry, err := strconv.Atoi(m_container.Config.StartWithOsRetryNum)
+			if err != nil {
+				m_container.Config.StartWithOsRetryNum = "10"
+				retry = 10
+			}
+			for i := 0; i < retry; i++ {
 				if !lifecycle.WebdavRunningStatus() {
 					// 重试五次 可能因为网络问题没有成功
 					bussiness.RunWebDav()

@@ -176,6 +176,15 @@
                         </div>
 
 
+                        <!--读取/下载缓冲区大小(字节)[默认值:10485760]-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">开机自启连接云盘重试次数[默认10]</label>
+                            <div class="col-md-4">
+                                <input class="form-control" v-model="form.start_with_os_retry_num" type="number"
+                                       :disabled="formDisable"/>
+                            </div>
+                        </div>
+
 
 
                     </fieldset>
@@ -241,7 +250,8 @@
                 port: "{{.Port}}",
                 read_buff_size: "{{.ReadBuffSize}}",
                 refresh_token: "{{.RefreshToken}}",
-                root: "{{.Root}}"
+                root: "{{.Root}}",
+                start_with_os_retry_num: "{{.StartWithOsRetryNum}}"
             },
             statusTask: undefined,
 

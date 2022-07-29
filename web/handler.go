@@ -145,6 +145,7 @@ func start(w http.ResponseWriter, r *http.Request) {
 		m_container.Config.SyncRefreshToken = p.SyncRefreshToken
 		m_container.Config.RefreshToken = p.RefreshToken
 		m_container.Config.Root = p.Root
+		m_container.Config.StartWithOsRetryNum = p.StartWithOsRetryNum
 		bussiness.RunWebDav()
 		w.WriteHeader(200)
 		fmt.Fprintf(w, "尝试启动成功")

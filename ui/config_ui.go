@@ -216,6 +216,18 @@ func OpenConfig() {
 	RootInput.Bind(binding.BindString(&(m_container.Config.Root)))
 	form = append(form, RootInput)
 
+	//CacheTtl
+	form = append(form, canvas.NewText("开机自启连接云盘重试次数[默认10]", constant.Gray))
+	StartWithOsRetryNumInput := widget.NewEntry()
+	canEditFun = append(canEditFun, func() {
+		StartWithOsRetryNumInput.Enable()
+	})
+	notCanEditFun = append(notCanEditFun, func() {
+		StartWithOsRetryNumInput.Disable()
+	})
+	StartWithOsRetryNumInput.Bind(binding.BindString(&(m_container.Config.StartWithOsRetryNum)))
+	form = append(form, StartWithOsRetryNumInput)
+
 	// 两个按钮
 	var startBtn *widget.Button
 	var stopBtn *widget.Button

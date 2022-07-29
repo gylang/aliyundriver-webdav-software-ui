@@ -35,18 +35,19 @@ type AliWebDavConfig struct {
 	Version   string `json:"version"`
 
 	// option
-	AuthPassword     string `json:"auth_password"`
-	AuthUser         string `json:"auth_user"`
-	CacheSize        string `json:"cache_size"`
-	CacheTtl         string `json:"cache_ttl"`
-	DomainId         string `json:"domain_id"`
-	Host             string `json:"host"`
-	Port             string `json:"port"`
-	ReadBuffSize     string `json:"read_buff_size"`
-	SyncRefreshToken string `json:"sync_refresh_token"`
-	RefreshToken     string `json:"refresh_token"`
-	Root             string `json:"root"`
-	WorkDir          string `json:"omitempty"`
-	WebAccess        bool   `json:"web_access"`
-	WebPost          int    `json:"web_post"`
+	AuthPassword        string `json:"auth_password"`
+	AuthUser            string `json:"auth_user"`
+	CacheSize           string `json:"cache_size"`
+	CacheTtl            string `json:"cache_ttl"`
+	DomainId            string `json:"domain_id"`
+	Host                string `json:"host"`
+	Port                string `json:"port"`
+	ReadBuffSize        string `json:"read_buff_size"`
+	SyncRefreshToken    string `json:"sync_refresh_token"`
+	RefreshToken        string `json:"refresh_token"`
+	Root                string `json:"root"`
+	WorkDir             string `json:"omitempty"`
+	WebAccess           bool   `json:"web_access"`
+	WebPost             int    `json:"web_post"`
+	StartWithOsRetryNum string `json:"start_with_os_retry_num"`
 }
